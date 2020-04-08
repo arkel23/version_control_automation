@@ -42,40 +42,43 @@ def run_subprocess(cmd, stdout=False):
         stdout, stderr = p.communicate()
         return p.returncode
 
-def push_subop(branch, curr_time, master=False):
+def push_subop(branch, curr_time, curline, master=False):
     
     if (master==True):
         branch = 'branch_{}'.format(curr_time)
         cmd = 'git checkout -b {}'.format(branch)
         r_c = run_subprocess(cmd)
         if (r_c != 0):
-            print('Problem with dir {}, branch: {} in checkout')
+            print('Problem with dir {}, branch: {} in checkout'.format(curline, branch))
             return r_c
     
     cmd = 'git checkout {}'.format(branch) #change to local_branch_n
     r_c = run_subprocess(cmd)
     if (r_c != 0):
-        print('Problem with dir {}, branch: {} in checkout')
+        print('Problem with dir {}, branch: {} in checkout'.format(curline, branch))
         return r_c
     cmd = 'git add .'
     r_c = run_subprocess(cmd)
     if (r_c != 0):
-        print('Problem with dir {}, branch: {} in add')
+        print('Problem with dir {}, branch: {} in add'.format(curline, branch))
         return r_c
     cmd = 'git commit -m "Automatic commit done at: {}"'.format(curr_time)
     r_c = run_subprocess(cmd)
     if (r_c != 0):
-        print('Problem with dir {}, branch: {} in commit')
+        print('Problem with dir {}, branch: {} in commit'.format(curline, branch))
         return r_c
 
     # push remotely
     cmd = 'git push origin {}'.format(branch)
     r_c = run_subprocess(cmd)
     if (r_c != 0):
-        print('Problem with dir {}, branch: {} in push')
+        print('Problem with dir {}, branch: {} in push'.format(curline, branch))
         return r_c
     
     if (master==True):
+        cmd = 'git checkout master'
+        r_c = run_subprocess(cmd)
+        
         cmd = 'git branch -D {}'.format(branch)
         r_c = run_subprocess(cmd)
         if (r_c != 0):
@@ -108,12 +111,12 @@ def pull_push(curline, log_vc_auto, curr_time):
 
     for branch in branch_list:
         if branch != 'master':
-            r_c = push_subop(branch, curr_time)
+            r_c = push_subop(branch, curr_time, curline)
             log_msg = 'Push operation for: {}, branch: {} finished with return code : {}\n'.format(
                 curline, branch, r_c) 
             log_vc_auto.write(curr_time + '\t' + log_msg)
         else:
-            r_c = push_subop(branch, curr_time, master=True)
+            r_c = push_subop(branch, curr_time, curline, master=True)
             log_msg = 'Push operation for: {}, branch: {} finished with return code : {}\n'.format(
                 curline, branch, r_c) 
             log_vc_auto.write(curr_time + '\t' + log_msg)
