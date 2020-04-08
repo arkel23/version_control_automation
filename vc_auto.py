@@ -111,6 +111,7 @@ def pull_push(curline, log_vc_auto, curr_time):
     branch_list = [branch for branch in branch_list if 'remote' not in branch]
 
     for branch in branch_list:
+        print(branch)
         if len(branch_list) > 1:
             if branch != 'master':
                 r_c = push_subop(branch, curr_time, curline)
@@ -127,6 +128,7 @@ def pull_push(curline, log_vc_auto, curr_time):
 def task_scheduler_mac(path_exe, path_curr, time_run1, time_run2):
     # makes a task scheduler using cron which runs on fixed times
     # to do cron
+    #last few comments. nothing useful
     pass
 
 def task_scheduler_linux(path_exe, path_curr, time_run1, time_run2):
