@@ -1,4 +1,7 @@
 curr_time	log_msg
 2020-04-09_02-04-39	Return code for initializing task_scheduler_win: 0
 2020-04-09_02-04-39	Folder verification return code: 0
-2020-04-09_02-04-39	Pull operation for C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others finished with return code : 02020-04-09_02-04-39	Push operation for: C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others, branch: master finished with return code : 0
+2020-04-09_02-04-39	Pull operation for C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others finished with return code : 02020-04-09_02-04-39	Push operation for: C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others, branch: master finished with return code : 02020-04-09_02-11-04	Folder verification return code: 0
+2020-04-09_02-11-04	Pull operation for C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others finished with return code : 0
+2020-04-09_02-11-04	Push operation for: C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others, branch: branch_2020-04-09_02-04-39 finished with return code : 0
+2020-04-09_02-11-04	Push operation for: C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others, branch: master finished with return code : 1
