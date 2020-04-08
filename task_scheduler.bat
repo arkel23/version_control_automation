@@ -1,2 +1,0 @@
-SCHTASKS /CREATE /SC DAILY /TN "vc_auto_1" /TR "C:\Users\edwin\Anaconda3\python.exe C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others" /ST 14:00
-SCHTASKS /CREATE /SC DAILY /TN "vc_auto_2" /TR "C:\Users\edwin\Anaconda3\python.exe C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others" /ST 23:00

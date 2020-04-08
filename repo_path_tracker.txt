@@ -1,2 +1,0 @@
-#local_repo_path
-C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others
