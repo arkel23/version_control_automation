@@ -111,6 +111,7 @@ def pull_push(curline, log_vc_auto, curr_time):
     branch_list = [branch for branch in branch_list if 'remote' not in branch]
 
     for branch in branch_list:
+        print(branch)
         if len(branch_list) > 1:
             if branch != 'master':
                 r_c = push_subop(branch, curr_time, curline)
