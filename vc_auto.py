@@ -91,7 +91,8 @@ def pull_push(curline, log_vc_auto, curr_time):
     os.chdir(curline)
 
     # pull operation
-    
+    cmd = 'git checkout master'
+    r_c = run_subprocess(cmd)
     cmd = 'git pull origin master'
     r_c = run_subprocess(cmd)
     log_msg = 'Pull operation for {} finished with return code : {}\n'.format(
@@ -110,11 +111,12 @@ def pull_push(curline, log_vc_auto, curr_time):
     branch_list = [branch for branch in branch_list if 'remote' not in branch]
 
     for branch in branch_list:
-        if branch != 'master':
-            r_c = push_subop(branch, curr_time, curline)
-            log_msg = 'Push operation for: {}, branch: {} finished with return code : {}\n'.format(
-                curline, branch, r_c) 
-            log_vc_auto.write(curr_time + '\t' + log_msg)
+        if len(branch_list) > 1:
+            if branch != 'master':
+                r_c = push_subop(branch, curr_time, curline)
+                log_msg = 'Push operation for: {}, branch: {} finished with return code : {}\n'.format(
+                    curline, branch, r_c) 
+                log_vc_auto.write(curr_time + '\t' + log_msg)
         else:
             r_c = push_subop(branch, curr_time, curline, master=True)
             log_msg = 'Push operation for: {}, branch: {} finished with return code : {}\n'.format(
@@ -131,6 +133,7 @@ def task_scheduler_linux(path_exe, path_curr, time_run1, time_run2):
     # makes a task scheduler using cron which runs on fixed times
     # to do cron
     # some comments on linux
+    # adding more comments on task scheduler
     pass
 
 def task_scheduler_win(path_exe, path_curr, time_run1, time_run2):
