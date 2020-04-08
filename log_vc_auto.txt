@@ -8,3 +8,6 @@ curr_time	log_msg
 2020-04-09_02-23-44	Folder verification return code: 0
 2020-04-09_02-23-44	Pull operation for C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others finished with return code : 0
 2020-04-09_02-23-44	Push operation for: C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others, branch: master finished with return code : 1
+2020-04-09_02-34-50	Folder verification return code: 0
+2020-04-09_02-34-50	Pull operation for C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others finished with return code : 0
+2020-04-09_02-34-50	Push operation for: C:\Users\edwin\Documents\Work\NCTU_MSc\ParallelComputingSystemPCSLab\ProgramsScripts\others, branch: master finished with return code : 0
