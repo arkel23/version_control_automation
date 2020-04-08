@@ -128,6 +128,7 @@ def pull_push(curline, log_vc_auto, curr_time):
 def task_scheduler_mac(path_exe, path_curr, time_run1, time_run2):
     # makes a task scheduler using cron which runs on fixed times
     # to do cron
+    #last few comments. nothing useful
     pass
 
 def task_scheduler_linux(path_exe, path_curr, time_run1, time_run2):
