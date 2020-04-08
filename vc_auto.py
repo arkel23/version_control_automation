@@ -75,6 +75,13 @@ def push_subop(branch, curr_time, master=False):
         print('Problem with dir {}, branch: {} in push')
         return r_c
     
+    if (master==True):
+        cmd = 'git branch -D {}'.format(branch)
+        r_c = run_subprocess(cmd)
+        if (r_c != 0):
+            print('Problem with dir {}, branch: {} in checkout')
+            return r_c
+
     return r_c
 
 def pull_push(curline, log_vc_auto, curr_time):
