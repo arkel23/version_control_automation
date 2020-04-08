@@ -82,7 +82,7 @@ def push_subop(branch, curr_time, curline, master=False):
         cmd = 'git branch -D {}'.format(branch)
         r_c = run_subprocess(cmd)
         if (r_c != 0):
-            print('Problem with dir {}, branch: {} in checkout')
+            print('Problem with dir {}, branch: {} in deleting')
             return r_c
 
     return r_c
