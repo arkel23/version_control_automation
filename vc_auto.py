@@ -222,12 +222,6 @@ def check_setup(ft):
     log_vc_auto.close()
     
 def main():
-    """
-    check integrity of path repos and os
-    linux and mac scheduling routine (2 fixed times)
-    each fixed time: pull from remote master into local master, 
-    then push changes from local branches (no master) to remote
-    """
     parser = argparse.ArgumentParser()
     parser.add_argument('-ft', required=False, 
     dest='ft', type=str, default=False,
