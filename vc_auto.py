@@ -134,6 +134,7 @@ def task_scheduler_linux(path_exe, path_curr, time_run1, time_run2):
     # to do cron
     # some comments on linux
     # adding more comments on task scheduler
+    # adding even more random lines at 03:07 am 04/09
     pass
 
 def task_scheduler_win(path_exe, path_curr, time_run1, time_run2):
