@@ -133,19 +133,9 @@ def pull_push(curline, log_vc_auto, curr_time):
                 curline, branch, r_c) 
             log_vc_auto.write(curr_time + '\t' + log_msg)
             
-
-def task_scheduler_mac(path_exe, path_curr, time_run1, time_run2):
-    # makes a task scheduler using cron which runs on fixed times
-    # to do cron
-    #last few comments. nothing useful
-    pass
-
 def task_scheduler_linux(path_exe, path_curr, time_run1, time_run2):
     # makes a task scheduler using cron which runs on fixed times
     # to do cron
-    # some comments on linux
-    # adding more comments on task scheduler
-    # adding even more random lines at 03:07 am 04/09
     pass
 
 def task_scheduler_win(path_exe, path_curr, time_run1, time_run2):
@@ -187,19 +177,17 @@ def initialize(curr_time, curr_os):
         repo_path_tracker.close()
 
     print('OS:', curr_os)
-    if (curr_os == 'Linux'):
-        task_scheduler_linux(path_exe, path_curr, time_run1, time_run2)
-        #to do: log
-    elif (curr_os == 'Darwin'):
-        task_scheduler_mac(path_exe, path_curr, time_run1, time_run2)
-        #to do: log 
-    elif (curr_os == 'Windows'):
+    if (curr_os == 'Windows'):
         rc = task_scheduler_win(path_exe, path_curr, time_run1, time_run2)
         log_msg = 'Return code for initializing task_scheduler_win: {}\n'.format(rc)
         log_vc_auto.write(curr_time + '\t' + log_msg)
+    elif (curr_os == 'Linux'):
+        task_scheduler_linux(path_exe, path_curr, time_run1, time_run2)
+        log_msg = 'No task scheduler for this platform. Manual operation only.\n'
+        log_vc_auto.write(curr_time + '\t' + log_msg)
     else:
-        log_msg = 'Invalid OS: {}'.format(curr_os)
-        log_vc_auto.write(curr_time + '\t' + log_msg + '\n')
+        log_msg = 'No task scheduler for this platform. Manual operation only.\n'
+        log_vc_auto.write(curr_time + '\t' + log_msg)
 
     add_folders(repo_path_tracker)
     repo_path_tracker.close()
