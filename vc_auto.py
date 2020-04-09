@@ -35,11 +35,14 @@ def verify_folders():
     return r_c
 
 
-def run_subprocess(cmd, curr_os='Windows', stdout=False):
+def run_subprocess(cmd, curr_os='Windows', commit=False, curr_date=0, stdout=False):
 
-    if (curr_os != 'Windows'):
-        cmd = cmd.split(' ')
-        cmd = [word.replace(' ','') for word in cmd]
+    if (commit == False):
+        if (curr_os != 'Windows'):
+            cmd = cmd.split(' ')
+            cmd = [word.replace(' ','') for word in cmd]
+    else:
+        cmd = ['git', 'commit', '-m', '"AutomaticCommitDoneAt_{}"'.format(curr_date)]
 
     if (stdout == True):
         p = Popen(cmd, stdout = subprocess.PIPE, stderr = subprocess.PIPE,)
@@ -71,7 +74,7 @@ def push_subop(branch, curr_time, curline, curr_os, master=False):
         print('Problem with dir {}, branch: {} in add'.format(curline, branch))
         return r_c
     cmd = 'git commit -m "Automatic commit done at: {}"'.format(curr_time)
-    r_c, out = run_subprocess(cmd, curr_os, stdout=True)
+    r_c, out = run_subprocess(cmd, curr_os, commit=True, curr_date=curr_time, stdout=True)
     if (r_c != 0):
         print('Problem with dir {}, branch: {} in commit'.format(curline, branch))
         decoded_out = str(out, ENCODING)
