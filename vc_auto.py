@@ -104,7 +104,7 @@ def pull_push(curline, log_vc_auto, curr_time):
     cmd = 'git checkout master'
     r_c = run_subprocess(cmd)
     cmd = 'git pull origin master'
-    r_c = run_subprocess(cmd)
+    r_c, out = run_subprocess(cmd, stdout=True)
     log_msg = 'Pull operation for {} finished with return code : {}\n'.format(
             curline, r_c) 
     log_vc_auto.write(curr_time + '\t' + log_msg)
