@@ -1,7 +1,8 @@
 import argparse, os, sys, path, platform, datetime
 import subprocess
 from subprocess import Popen, PIPE
-
+from os.path import expanduser
+home = expanduser("~")
 ENCODING = 'utf-8'
 
 def add_folders(repo_path_tracker):
@@ -34,7 +35,12 @@ def verify_folders():
     return r_c
 
 
-def run_subprocess(cmd, stdout=False):
+def run_subprocess(cmd, curr_os='Windows', stdout=False):
+
+    if (curr_os != 'Windows'):
+        cmd = cmd.split(' ')
+        cmd = [word.replace(' ','') for word in cmd]
+
     if (stdout == True):
         p = Popen(cmd, stdout = subprocess.PIPE, stderr = subprocess.PIPE,)
         stdout, stderr = p.communicate()
@@ -44,28 +50,28 @@ def run_subprocess(cmd, stdout=False):
         stdout, stderr = p.communicate()
         return p.returncode
 
-def push_subop(branch, curr_time, curline, master=False):
+def push_subop(branch, curr_time, curline, curr_os, master=False):
     
     if (master==True):
         branch = 'branch_{}'.format(curr_time)
         cmd = 'git checkout -b {}'.format(branch)
-        r_c = run_subprocess(cmd)
+        r_c = run_subprocess(cmd, curr_os)
         if (r_c != 0):
             print('Problem with dir {}, branch: {} in checkout'.format(curline, branch))
             return r_c
     
     cmd = 'git checkout {}'.format(branch) #change to local_branch_n
-    r_c = run_subprocess(cmd)
+    r_c = run_subprocess(cmd, curr_os)
     if (r_c != 0):
         print('Problem with dir {}, branch: {} in checkout'.format(curline, branch))
         return r_c
     cmd = 'git add .'
-    r_c = run_subprocess(cmd)
+    r_c = run_subprocess(cmd, curr_os)
     if (r_c != 0):
         print('Problem with dir {}, branch: {} in add'.format(curline, branch))
         return r_c
     cmd = 'git commit -m "Automatic commit done at: {}"'.format(curr_time)
-    r_c, out = run_subprocess(cmd, stdout=True)
+    r_c, out = run_subprocess(cmd, curr_os, stdout=True)
     if (r_c != 0):
         print('Problem with dir {}, branch: {} in commit'.format(curline, branch))
         decoded_out = str(out, ENCODING)
@@ -76,7 +82,7 @@ def push_subop(branch, curr_time, curline, master=False):
 
     # push remotely
     cmd = 'git push origin {}'.format(branch)
-    r_c, out = run_subprocess(cmd, stdout=True)
+    r_c, out = run_subprocess(cmd, curr_os, stdout=True)
     if (r_c != 0):
         print('Problem with dir {}, branch: {} in push'.format(curline, branch))
         decoded_out = str(out, ENCODING)
@@ -87,31 +93,31 @@ def push_subop(branch, curr_time, curline, master=False):
     
     if (master==True):
         cmd = 'git checkout master'
-        r_c = run_subprocess(cmd)
+        r_c = run_subprocess(cmd, curr_os)
         
         cmd = 'git branch -D {}'.format(branch)
-        r_c = run_subprocess(cmd)
+        r_c = run_subprocess(cmd, curr_os)
         if (r_c != 0):
             print('Problem with dir {}, branch: {} in deleting')
             return r_c
 
     return r_c
 
-def pull_push(curline, log_vc_auto, curr_time):
+def pull_push(curline, log_vc_auto, curr_time, curr_os):
     os.chdir(curline)
 
     # pull operation
     cmd = 'git checkout master'
-    r_c = run_subprocess(cmd)
+    r_c = run_subprocess(cmd, curr_os)
     cmd = 'git pull origin master'
-    r_c, out = run_subprocess(cmd, stdout=True)
+    r_c, out = run_subprocess(cmd, curr_os, stdout=True)
     log_msg = 'Pull operation for {} finished with return code : {}\n'.format(
             curline, r_c) 
     log_vc_auto.write(curr_time + '\t' + log_msg)
     
     # push operation
     cmd = 'git branch -a'
-    r_c, out = run_subprocess(cmd, stdout=True)
+    r_c, out = run_subprocess(cmd, curr_os, stdout=True)
     #print(out) #prints "b '{local_branch_1}\n{local_branch_2}\n{remote_branch_n}\n" in byte
     decoded_out = str(out[:-1], ENCODING)
     out_clean = decoded_out.replace(' ', '').replace('*', '')
@@ -123,12 +129,12 @@ def pull_push(curline, log_vc_auto, curr_time):
         print(branch)
         if len(branch_list) > 1:
             if branch != 'master':
-                r_c = push_subop(branch, curr_time, curline)
+                r_c = push_subop(branch, curr_time, curline, curr_os)
                 log_msg = 'Push operation for: {}, branch: {} finished with return code : {}\n'.format(
                     curline, branch, r_c) 
                 log_vc_auto.write(curr_time + '\t' + log_msg)
         else:
-            r_c = push_subop(branch, curr_time, curline, master=True)
+            r_c = push_subop(branch, curr_time, curline, curr_os master=True)
             log_msg = 'Push operation for: {}, branch: {} finished with return code : {}\n'.format(
                 curline, branch, r_c) 
             log_vc_auto.write(curr_time + '\t' + log_msg)
@@ -215,7 +221,7 @@ def check_setup(ft):
     
     for curline in repo_path_tracker:
         if not curline.startswith('#'):
-            pull_push(curline, log_vc_auto, curr_time)
+            pull_push(curline, log_vc_auto, curr_time, curr_os)
 
     repo_path_tracker.close()
     log_vc_auto.close()
