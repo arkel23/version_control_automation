@@ -164,8 +164,8 @@ def initialize(curr_time, curr_os):
     repo_path_tracker = open('repo_path_tracker.txt', 'w')
     repo_path_tracker.write('#local_repo_path\n')
 
-    time_run1 = input('Fixed time 1 to run script(number from 13-23): ')
-    time_run2 = input('Fixed time 2 to run script(number from 1-23): ')
+    time_run1 = input('Fixed time 1 to run script(number from 01-23): ')
+    time_run2 = input('Fixed time 2 to run script(number from 01-23): ')
 
     try:
         exe = sys.executable #python executabe path
