@@ -68,8 +68,6 @@ def push_subop(branch, curr_time, curline, master=False):
     r_c, out = run_subprocess(cmd, stdout=True)
     if (r_c != 0):
         print('Problem with dir {}, branch: {} in commit'.format(curline, branch))
-        print('error:', r_c)
-        print(out)
         decoded_out = str(out, ENCODING)
         com_error = 'nothing to commit, working tree clean'
         if (com_error in decoded_out):
@@ -83,7 +81,6 @@ def push_subop(branch, curr_time, curline, master=False):
         print('Problem with dir {}, branch: {} in push'.format(curline, branch))
         decoded_out = str(out, ENCODING)
         com_error = 'Everything up-to-date'
-        print(decoded_out)
         if (com_error in decoded_out):
             r_c = com_error
         return r_c
