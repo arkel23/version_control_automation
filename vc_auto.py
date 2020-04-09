@@ -134,7 +134,7 @@ def pull_push(curline, log_vc_auto, curr_time, curr_os):
                     curline, branch, r_c) 
                 log_vc_auto.write(curr_time + '\t' + log_msg)
         else:
-            r_c = push_subop(branch, curr_time, curline, curr_os master=True)
+            r_c = push_subop(branch, curr_time, curline, curr_os, master=True)
             log_msg = 'Push operation for: {}, branch: {} finished with return code : {}\n'.format(
                 curline, branch, r_c) 
             log_vc_auto.write(curr_time + '\t' + log_msg)
