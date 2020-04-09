@@ -2,6 +2,8 @@ import argparse, os, sys, path, platform, datetime
 import subprocess
 from subprocess import Popen, PIPE
 
+ENCODING = 'utf-8'
+
 def add_folders(repo_path_tracker):
     #prompt user for adding paths
 
@@ -63,16 +65,24 @@ def push_subop(branch, curr_time, curline, master=False):
         print('Problem with dir {}, branch: {} in add'.format(curline, branch))
         return r_c
     cmd = 'git commit -m "Automatic commit done at: {}"'.format(curr_time)
-    r_c = run_subprocess(cmd)
+    r_c, out = run_subprocess(cmd, stdout=True)
     if (r_c != 0):
         print('Problem with dir {}, branch: {} in commit'.format(curline, branch))
+        decoded_out = str(out, ENCODING)
+        com_error = 'nothing to commit, working tree clean'
+        if (com_error in decoded_out):
+            r_c = com_error
         return r_c
 
     # push remotely
     cmd = 'git push origin {}'.format(branch)
-    r_c = run_subprocess(cmd)
+    r_c, out = run_subprocess(cmd, stdout=True)
     if (r_c != 0):
         print('Problem with dir {}, branch: {} in push'.format(curline, branch))
+        decoded_out = str(out, ENCODING)
+        com_error = 'Everything up-to-date'
+        if (com_error in decoded_out):
+            r_c = com_error
         return r_c
     
     if (master==True):
@@ -94,7 +104,7 @@ def pull_push(curline, log_vc_auto, curr_time):
     cmd = 'git checkout master'
     r_c = run_subprocess(cmd)
     cmd = 'git pull origin master'
-    r_c = run_subprocess(cmd)
+    r_c, out = run_subprocess(cmd, stdout=True)
     log_msg = 'Pull operation for {} finished with return code : {}\n'.format(
             curline, r_c) 
     log_vc_auto.write(curr_time + '\t' + log_msg)
@@ -103,8 +113,7 @@ def pull_push(curline, log_vc_auto, curr_time):
     cmd = 'git branch -a'
     r_c, out = run_subprocess(cmd, stdout=True)
     #print(out) #prints "b '{local_branch_1}\n{local_branch_2}\n{remote_branch_n}\n" in byte
-    encoding = 'utf-8'
-    decoded_out = str(out[:-1], encoding)
+    decoded_out = str(out[:-1], ENCODING)
     out_clean = decoded_out.replace(' ', '').replace('*', '')
     branch_list = out_clean.split('\n')
     branch_list = [branch.replace('\n', '') for branch in branch_list]
