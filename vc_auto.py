@@ -13,8 +13,9 @@ def add_folders(repo_path_tracker):
         if inp=='':
             break
         else:
-            if (os.path.exists(inp)):
+            if (os.path.exists(os.path.normpath(inp))):
                 repo_path_tracker.write(os.path.abspath(inp))
+                repo_path_tracker.write('\n')
             else:
                 print('Directory not valid. Please add a correct directory.')
 
@@ -108,8 +109,8 @@ def push_subop(branch, curr_time, curline, curr_os, master=False):
 
     return r_c
 
-def pull_push(curline, log_vc_auto, curr_time, curr_os):
-    os.chdir(curline)
+def pull_push(curline, log_vc_auto, curr_time):
+    os.chdir(os.path.normpath(curline.strip('\n')))
 
     # pull operation
     cmd = 'git checkout master'
