@@ -181,7 +181,9 @@ def initialize(curr_time, curr_os):
     try:
         exe = sys.executable #python executabe path
         path_exe = path.Path(exe)  #path for the exe
-        path_curr = path.Path(os.getcwd())
+        path_curr = path.Path(os.getcwd()) #path for curr directory
+        script_name = os.path.basename(__file__)
+        path_curr = os.path.join(path_curr, script_name)
     except:
         log_msg = 'Error in either executable or current path. Closing prematurely.'
         log_vc_auto.write(curr_time + '\t' + log_msg)
